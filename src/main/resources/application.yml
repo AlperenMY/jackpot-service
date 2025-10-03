@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: jackpot-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: jackpot-reward-consumer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.value.default.type: com.jackpot.event.BetMessage
+        spring.json.use.type.headers: false
+      auto-offset-reset: earliest
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+
+jackpot:
+  kafka:
+    topic: jackpot-bets
+  random:
+    seed: 424242
+  contribution:
+    fixed:
+      rate: 0.10
+    variable:
+      start-rate: 0.15
+      min-rate: 0.05
+      max-rate: 0.25
+      decay-step: 5000.0
+    clamp-tolerance: 0.000001
+  reward-chance:
+    fixed:
+      probability: 0.01
+    variable:
+      base-probability: 0.005
+      growth-factor: 0.00005
+      hard-limit: 20000.0
+      max-probability: 1.0
+  bootstrap:
+    jackpots:
+      - id: one
+        name: Jackpot One
+        contribution-strategy: fixed
+        reward-chance-strategy: variable
+        initial-pool: 1000.0
+      - id: two
+        name: Jackpot Two
+        contribution-strategy: variable
+        reward-chance-strategy: fixed
+        initial-pool: 5000.0
+      - id: three
+        name: Jackpot Three
+        contribution-strategy: variable
+        reward-chance-strategy: variable
+        initial-pool: 20000.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.jackpot: INFO
