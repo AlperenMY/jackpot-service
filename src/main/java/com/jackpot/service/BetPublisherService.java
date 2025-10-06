@@ -31,7 +31,7 @@ public class BetPublisherService {
         String topic = jackpotProperties.getKafka().getTopic();
         log.info("Publishing bet betId={} jackpotId={} amount={}",
             request.getBetId(), request.getJackpotId(), request.getBetAmount());
-        kafkaTemplate.send(topic, request.getBetId(), message)
+        kafkaTemplate.send(topic, request.getJackpotId(), message)
             .whenComplete((result, ex) -> {
                 if (ex != null) {
                     log.error("Failed to publish bet betId={} jackpotId={} error={}",
