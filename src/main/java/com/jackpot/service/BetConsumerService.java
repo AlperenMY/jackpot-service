@@ -19,7 +19,11 @@ public class BetConsumerService {
         this.jackpotEvaluationService = jackpotEvaluationService;
     }
 
-    @KafkaListener(topics = "${jackpot.kafka.topic}", containerFactory = "betKafkaListenerContainerFactory")
+    @KafkaListener(
+        concurrency = "3", 
+        topics = "${jackpot.kafka.topic}", 
+        containerFactory = "betKafkaListenerContainerFactory"
+    )
     public void consumeBet(BetMessage betMessage) {
         log.info("Consuming bet betId={} jackpotId={} amount={}",
             betMessage.getBetId(), betMessage.getJackpotId(), betMessage.getBetAmount());
