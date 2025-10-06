@@ -1,0 +1,67 @@
+# Maven build output
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+dependency-reduced-pom.xml
+
+# Eclipse
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# Spring Tool Suite (STS)
+.sts4-cache/
+.springBeans/
+
+# Logs
+*.log
+logs/
+*.pid
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Environment & config
+.env
+application-local.yml
+application-dev.yml
+application-test.yml
+
+# Docker & container files
+.docker/
+docker-compose.override.yml
+
+# Build artifacts
+*.jar
+*.war
+*.ear
+
+# Test reports
+surefire-reports/
+test-output/
+jacoco.exec
+coverage/
+
+# Node modules (if frontend embedded)
+node_modules/
