@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash("jackpot_reward")
@@ -12,6 +13,7 @@ public class JackpotReward implements Serializable {
 
     @Id
     private String id;
+    @Indexed
     private String betId;
     private String jackpotId;
     private String playerId;
